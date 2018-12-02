@@ -11,7 +11,7 @@ public class day1 {
 	public static void part1(String[] args) throws IOException {
 		int result = 0;
 
-		BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Stijn\\Desktop\\adventofcode\\day1.txt"));
+		BufferedReader in = new BufferedReader(new FileReader("input\\day1.txt"));
 		String line;
 		while ((line = in.readLine()) != null) {
 			result += Integer.valueOf(line);
@@ -26,7 +26,7 @@ public class day1 {
 		
 		long start = System.currentTimeMillis();
 		
-		BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Stijn\\Desktop\\adventofcode\\day1.txt"));
+		BufferedReader in = new BufferedReader(new FileReader("input\\day1.txt"));
 		String line;
 		while ((line = in.readLine()) != null) {
 			list.add(line);
