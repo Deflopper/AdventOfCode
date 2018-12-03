@@ -10,32 +10,24 @@ import java.util.HashMap;
 public class day2 {
 
 	public static void main(String[] args) throws IOException {
+		ArrayList<String> list = Utils.getInput(2);
 		String result = null;
-		ArrayList<String> list = new ArrayList<String>();
 		long start = System.currentTimeMillis();
-
-		BufferedReader in = new BufferedReader(new FileReader("input\\day2.txt"));
-		String line;
-		while ((line = in.readLine()) != null) {
-			list.add(line);
-		}
-		in.close();
 
 		for (String s : list) {
 			for (String s2 : list) {
 				if (s.equals(s2))
-					continue;
+					continue; //string is comparing to itself, cancel
 				result = "";
 				int same = 0;
 				for (int i = 0; i < s.length(); i++) {
-					if (s.charAt(i) == s2.charAt(i)) {
+					if (s.charAt(i) == s2.charAt(i)) { //compares if the chars are the same
 						result += s.charAt(i);
 						same++;
 					}
 				}
-				if (same == s.length() - 1) {
-					long finish = System.currentTimeMillis();
-					long timeElapsed = finish - start;
+				if (same == s.length() - 1) { //checks if only 1 chars differs
+					long timeElapsed = System.currentTimeMillis() - start;
 
 					System.out.println("Found: " + result + " in: " + Float.valueOf(timeElapsed / 1000F) + " seconds");			
 					return;
@@ -44,16 +36,15 @@ public class day2 {
 		}
 	}
 
-	public static void part1(String[] args) throws NumberFormatException, IOException {
+	public static void part1(String[] args) throws NumberFormatException, IOException { 
+		ArrayList<String> list = Utils.getInput(2);
 		int result = 0, two = 0, three = 0;
 		long start = System.currentTimeMillis();
 
-		BufferedReader in = new BufferedReader(new FileReader("input\\day2.txt"));
-		String line;
-		while ((line = in.readLine()) != null) {
+		for (String s : list) {
 			HashMap<Character, Integer> already = new HashMap<Character, Integer>();
-			for (int i = 0; i < line.length(); i++) {
-				char now = line.charAt(i);
+			for (int i = 0; i < s.length(); i++) {
+				char now = s.charAt(i);
 				if (already.containsKey(now)) {
 					already.put(now, already.get(now) + 1);
 				} else {
@@ -65,12 +56,10 @@ public class day2 {
 			if (already.containsValue(3))
 				three++;
 		}
-		in.close();
 
 		result = two * three;
 
-		long finish = System.currentTimeMillis();
-		long timeElapsed = finish - start;
+		long timeElapsed = System.currentTimeMillis() - start;
 
 		System.out.println("Found: " + result + " in: " + Float.valueOf(timeElapsed / 1000F) + " seconds");
 	}

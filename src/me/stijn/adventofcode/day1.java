@@ -9,29 +9,20 @@ import java.util.ArrayList;
 public class day1 {
 
 	public static void part1(String[] args) throws IOException {
+		ArrayList<String> list = Utils.getInput(1);
 		int result = 0;
 
-		BufferedReader in = new BufferedReader(new FileReader("input\\day1.txt"));
-		String line;
-		while ((line = in.readLine()) != null) {
-			result += Integer.valueOf(line);
+		for (String s : list) {
+			result += Integer.valueOf(s);
 		}
-		in.close();
 		System.out.println(result);
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		ArrayList<Integer> alreadyseen = new ArrayList<Integer>();
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list = Utils.getInput(1);
 		
 		long start = System.currentTimeMillis();
-		
-		BufferedReader in = new BufferedReader(new FileReader("input\\day1.txt"));
-		String line;
-		while ((line = in.readLine()) != null) {
-			list.add(line);
-		}
-		in.close();
 		
 		int result = 0;
 		boolean found = false;
@@ -46,8 +37,7 @@ public class day1 {
 			}
 		}
 		
-		long finish = System.currentTimeMillis();
-		long timeElapsed = finish - start;
+		long timeElapsed = System.currentTimeMillis() - start;
 		
 		System.out.println("Found: " + result + " in: " + Float.valueOf(timeElapsed / 1000F) + " seconds");
 	}
