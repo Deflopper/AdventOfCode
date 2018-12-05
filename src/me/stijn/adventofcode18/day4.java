@@ -1,4 +1,4 @@
-package me.stijn.adventofcode;
+package me.stijn.adventofcode18;
 
 import java.io.IOException;
 import java.text.DateFormat;

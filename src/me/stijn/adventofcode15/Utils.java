@@ -1,4 +1,4 @@
-package me.stijn.adventofcode;
+package me.stijn.adventofcode15;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ public class Utils {
 	 */
 	public static ArrayList<String> getInput(Integer i) throws IOException{
 		ArrayList<String> list = new ArrayList<String>();
-		BufferedReader in = new BufferedReader(new FileReader("input\\day" + i + ".txt"));
+		BufferedReader in = new BufferedReader(new FileReader("input\\15\\day" + i + ".txt"));
 		String line;
 		while ((line = in.readLine()) != null) {
 			list.add(line);
@@ -29,7 +29,7 @@ public class Utils {
 	}
 	
 	public static String getString(Integer i) throws IOException {
-		Path path = Paths.get("input\\day" + i + ".txt");
+		Path path = Paths.get("input\\15\\day" + i + ".txt");
 		List<String> lines = Files.readAllLines(path);
 		return lines.get(0);
 	}

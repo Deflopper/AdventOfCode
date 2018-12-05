@@ -1,4 +1,4 @@
-package me.stijn.adventofcode;
+package me.stijn.adventofcode18;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -7,13 +7,14 @@ public class day5 {
 
 	public static void main(String[] args) throws IOException {
 		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-
+		
 		String input = Utils.getString(5);
+		String original = input;
 		long start = System.currentTimeMillis();
 		char temp = '#';
 		int changes = 1, best = 100000;
 		for (char c : alphabet) {
-			input = Utils.getString(5);
+			input = original;
 			input = input.replaceAll(Character.toString(Character.toLowerCase(c)), "");
 			input = input.replaceAll(Character.toString(Character.toUpperCase(c)), "");
 			changes = 1;
@@ -53,17 +54,9 @@ public class day5 {
 			temp = '#';
 			for (int i = 0; i < input.length(); i++) {
 				char now = input.charAt(i);
-				if ((Character.toUpperCase(temp) == Character.toUpperCase(now))) { // check if it is the same letter
+				if ((Character.toUpperCase(temp) == Character.toUpperCase(now))) {
 					if ((temp == Character.toLowerCase(temp) && now == Character.toUpperCase(now)
-							|| (temp == Character.toUpperCase(temp) && now == Character.toLowerCase(now)))) { // check
-																												// if
-																												// one
-																												// is
-																												// capitalized
-																												// and
-																												// the
-																												// other
-																												// isn't
+							|| (temp == Character.toUpperCase(temp) && now == Character.toLowerCase(now)))) { 
 						input = input.substring(0, i - 1) + input.substring(i + 1);
 						changes++;
 						break;
