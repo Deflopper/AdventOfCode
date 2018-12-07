@@ -42,11 +42,6 @@ public class day6 {
 		long timeElapsed = System.currentTimeMillis() - start;
 		System.out.println("Found: " + region + " in: " + Float.valueOf(timeElapsed / 1000F) + " seconds");
 	}
-	
-	
-	
-	
-	
 
 	public static void part1(String[] args) throws IOException, InterruptedException {
 		ArrayList<String> list = Utils.getInput(6);
@@ -106,7 +101,7 @@ public class day6 {
 				}
 			}
 		}
-
+		//checks for the biggest area
 		int best = 0;
 		for (Integer i : data.keySet()) {
 			if (data.get(i) > best) {
