@@ -1,11 +1,7 @@
 package me.stijn.adventofcode15;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class day23 {
 	static Register a = new Register();

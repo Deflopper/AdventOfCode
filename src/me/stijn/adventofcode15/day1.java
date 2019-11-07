@@ -1,10 +1,6 @@
 package me.stijn.adventofcode15;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class day1 {
 	
@@ -38,8 +34,7 @@ public class day1 {
 		long start = System.currentTimeMillis();
 		
 		int floor = 0;
-		int basement = 0;
-		
+
 		for (int i = 0; i < input.length(); i++) {
 			char now = input.charAt(i);
 			if (now == '(') {
