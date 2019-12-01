@@ -5,6 +5,8 @@
 
 \.project
 
+\bin
+
 bin/me/stijn/adventofcode/day1\.class
 
 bin/me/stijn/adventofcode/day2\.class
