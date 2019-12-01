@@ -1,1 +1,1 @@
-AdventOfCode 2018 solutions in Java
+AdventOfCode solutions in Java
