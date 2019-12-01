@@ -10,9 +10,6 @@ public class day1 {
 		ArrayList<String> input = Utils.getInput(1);
 		for (String s : input) {
 			int i = Integer.valueOf(s);
-			i /= 3;
-			i-=2;
-			sum += i;
 			for (;;) {
 				i /= 3;
 				i-=2;
