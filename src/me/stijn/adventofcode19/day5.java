@@ -21,7 +21,6 @@ public class day5 {
 		int pointer = 0;
 		
 		loop: for(;;) {
-			System.out.println("pointer " + pointer);
 			char[] instruction = intArr.get(pointer).toString().toCharArray();
 			int opcode = instruction.length > 1 ?Integer.valueOf(Character.getNumericValue(instruction[instruction.length -2]) + 
 					"" + Character.getNumericValue(instruction[instruction.length -1])):
@@ -31,12 +30,12 @@ public class day5 {
 			for (int i = instruction.length - 3; i >= 0; i--) {
 				modes.put(instruction.length - 3 - i, Character.getNumericValue(instruction[i]));
 			}
-			System.out.println("Opcode: " + opcode);
+			
+			Integer val1 = getParameter(modes, intArr, pointer, 1);
+			Integer val2 = getParameter(modes, intArr, pointer, 2);
 			switch(opcode) {
 			case 1:
 			case 2:
-				Integer val1 = getParameter(modes, intArr, pointer, 1);
-				Integer val2 = getParameter(modes, intArr, pointer, 2);
 				int sum = opcode == 1? val1 + val2 : val1 * val2;
 				intArr.set(intArr.get(pointer + 3), sum);
 				pointer+=4;
@@ -44,9 +43,9 @@ public class day5 {
 			case 3:
 				System.out.println("Input:");
 				int val = Integer.valueOf(in.nextLine());
-				if (modes.containsKey(0) && modes.get(0) == 1)
+				if (modes.containsKey(0) && modes.get(0) == 1) 
 					intArr.set(pointer + 1, val);
-				else
+				else 
 					intArr.set(intArr.get(pointer + 1), val);
 				pointer+=2;
 				break;
@@ -57,28 +56,19 @@ public class day5 {
 				break;
 			case 5:
 			case 6:
-				val1 = getParameter(modes, intArr, pointer, 1);
-				val2 = getParameter(modes, intArr, pointer, 2);
-				System.out.println("val2: " + val2 + " val1 " + val1);
-				if (opcode == 5 ? val1 != 0 : val1 == 0)
+				if (opcode == 5 ? val1 != 0 : val1 == 0) 
 					pointer = val2;
 				else 
 					pointer+=3;
 				break;
 			case 7:
 			case 8:
-				val1 = getParameter(modes, intArr, pointer, 1);
-				val2 = getParameter(modes, intArr, pointer, 2);
 				int val3 = intArr.get(pointer + 3);
 
-				if (opcode == 7 ? val1 < val2 : val1 == val2) {
+				if (opcode == 7 ? val1 < val2 : val1.equals(val2)) 
 					intArr.set(val3, 1);
-					System.out.println("setting: " + val3 + " to 1 " + val1 + " val2 " + val2);
-				}
-				else {
+				else 
 					intArr.set(val3, 0);
-					System.out.println("setting: " + val3 + " to 0 " + val1 + " val2 " + val2 );
-				}
 				pointer += 4;
 				break;
 			case 99:
@@ -88,12 +78,10 @@ public class day5 {
 			}
 		}
 		in.close();
-		System.out.println("asdf " + intArr.get(0));
 	}
 	
 	public static Integer getParameter(HashMap<Integer, Integer> modes, ArrayList<Integer> arr, int pointer, int offset) {
-		//System.out.println("Getting param: " + pointer + " <pointer " + offset + " res: " + arr.get(pointer + offset) + " bool: " + (modes.containsKey(offset-1) && modes.get(offset-1) == 1) + " mode: " + modes.toString() + " contains: " + arr.contains(pointer + offset)  );
-		if (arr.get(pointer + offset) != null)
+		if (arr.size() > pointer + offset && arr.get(pointer + offset) != null)
 			return (modes.containsKey(offset-1) && modes.get(offset-1) == 1) ? arr.get(pointer + offset) : arr.get(arr.get(pointer + offset));
 		return -1;
 	}

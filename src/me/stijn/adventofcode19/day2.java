@@ -6,12 +6,11 @@ import java.util.ArrayList;
 public class day2 {
 	
 	public static void main(String[] args) throws IOException {
-		String input = Utils.getString(2);
-		String[] program = input.split(",");
+		String[] program = Utils.getString(2).split(",");
 		ArrayList<Integer> originArr = new ArrayList<>();
-		for (String s : program) {
+		for (String s : program)
 			originArr.add(Integer.valueOf(s));
-		}
+		
 		ArrayList<Integer> intArr;
 		int noun = 0, verb = 0, pointer = 0;
 		
@@ -49,12 +48,10 @@ public class day2 {
 	}
 	
 	public static void part1(String[] args) throws IOException {
-		String input = Utils.getString(2);
-		String[] program = input.split(",");
+		String[] program = Utils.getString(2).split(",");
 		ArrayList<Integer> intArr = new ArrayList<>();
-		for (String s : program) {
+		for (String s : program)
 			intArr.add(Integer.valueOf(s));
-		}
 		
 		intArr.set(1, 12);
 		intArr.set(2, 2);
