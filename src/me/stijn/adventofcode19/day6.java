@@ -22,7 +22,6 @@ public class day6 {
 				pointer = queue.get(0);
 				queue.remove(0);
 			}
-			
 			for (String s : input) {
 				String[] split = s.split("\\)");
 				if (pointer.name.equals(split[0])) { //found child
@@ -31,12 +30,10 @@ public class day6 {
 					children.add(p);
 				}
 			}
-		
 			if (!children.isEmpty()) {
 				pointer.children.addAll(children);
 				queue.addAll(children);
 			}
-			
 			if (queue.isEmpty())
 				break;
 		}
@@ -46,12 +43,10 @@ public class day6 {
 		
 		for (Planet p : youTree) {
 			if (sanTree.contains(p)) {
-				System.out.println("Res: " + Integer.valueOf(youTree.indexOf(p) + sanTree.indexOf(p) - 2)); //subtract 2 because SAN and YOU are included
+				System.out.println("Minimal orbit transfers required: " + Integer.valueOf(youTree.indexOf(p) + sanTree.indexOf(p) - 2)); //subtract 2 because SAN and YOU are included
 				break;
 			}
 		}
-
-		System.out.println("Result of all direct and indirect orbits: " + sanTree.toString() + " : " + youTree.toString());
 	}
 	
 	public static ArrayList<Planet> treeToCom(ArrayList<Planet> planets, Planet planet){
@@ -88,7 +83,6 @@ public class day6 {
 				pointer = queue.get(0);
 				queue.remove(0);
 			}
-			
 			for (String s : input) {
 				String[] split = s.split("\\)");
 				if (pointer.name.equals(split[0])) { //found child
@@ -97,12 +91,10 @@ public class day6 {
 					children.add(p);
 				}
 			}
-		
 			if (!children.isEmpty()) {
 				pointer.children.addAll(children);
 				queue.addAll(children);
 			}
-			
 			if (queue.isEmpty())
 				break;
 		}
@@ -136,20 +128,6 @@ public class day6 {
 				distance++;
 			}
 			return distance;
-		}
-		
-		public void printFull() {
-			System.out.print(" >" + name);
-			if (!children.isEmpty()) {
-				if (children.size() > 1 ) {
-					for (Planet p : children) {
-						p.printFull();
-						System.out.println();
-					}
-				} else {
-					children.get(0).printFull();
-				}
-			}
 		}
 
 		@Override
