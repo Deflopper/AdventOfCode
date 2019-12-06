@@ -149,7 +149,6 @@ public class day5 {
 			}
 		}
 		in.close();
-		System.out.println("asdf " + intArr.get(0));
 	}
 
 }
