@@ -16,7 +16,7 @@ public class day6 {
 		planets.add(com);
 		
 		Planet pointer = com;
-		for (;;) {
+		for (;;) { //load input into planets
 			children.clear();
 			if (!queue.isEmpty()) {
 				pointer = queue.get(0);
