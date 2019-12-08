@@ -13,11 +13,15 @@ public class day8 {
 		String input = Utils.getString(8);
 		
 		ArrayList<Layer> layers = new ArrayList();
+		Layer highestLayer = null;
 
 		for (int i = 0; i < input.length() / (X_SIZE * Y_SIZE); i++) {
 			Layer lay = new Layer(X_SIZE, Y_SIZE, input.substring(X_SIZE * Y_SIZE * i, X_SIZE * Y_SIZE * (i + 1)));
 			lay.decode();
 			layers.add(lay);
+			if (highestLayer == null || lay.getAmountofDigits(0) < highestLayer.getAmountofDigits(0)) {
+				highestLayer = lay;
+			}
 		}
 		
 		Layer finalImage = new Layer(X_SIZE, Y_SIZE, "");
@@ -35,23 +39,10 @@ public class day8 {
 			}
 		}
 		
-		finalImage.printImageToConsole();
-	}
+		System.out.println("Part 1, number of 1 multiplied by number of 2 digits on the layer with the least 0 digits: " + highestLayer.getAmountofDigits(1) * highestLayer.getAmountofDigits(2));
 
-	public static void part1(String[] args) throws IOException {
-		String input = Utils.getString(8);
-		
-		Layer highestLayer = null;
-		
-		for (int i = 0; i < input.length() / (X_SIZE * Y_SIZE); i++) {
-			Layer lay = new Layer(X_SIZE, Y_SIZE, input.substring(X_SIZE * Y_SIZE * i, X_SIZE * Y_SIZE * (i + 1)));
-			lay.decode();
-			if (highestLayer == null || lay.getAmountofDigits(0) < highestLayer.getAmountofDigits(0)) {
-				highestLayer = lay;
-			}
-		}
-		
-		System.out.println("Number of 1 multiplied by number of 2 digits on the layer with the least 0 digits: " + highestLayer.getAmountofDigits(1) * highestLayer.getAmountofDigits(2));
+		System.out.println("Part 2:");
+		finalImage.printImageToConsole();
 	}
 
 	public static class Layer {
@@ -98,10 +89,10 @@ public class day8 {
 		
 		public void printImageToConsole() {
 			for (int i = 0; i < xsize;i++) {
-				System.out.println();
 				for (int j = 0; j < ysize;j++) {
 					System.out.print(data[i][j] != null && data[i][j] == Pixel.BLACK.code ? " " : "#");
 				}
+				System.out.println();
 			}
 		}
 	}
