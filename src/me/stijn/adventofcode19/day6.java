@@ -2,7 +2,6 @@ package me.stijn.adventofcode19;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class day6 {
 

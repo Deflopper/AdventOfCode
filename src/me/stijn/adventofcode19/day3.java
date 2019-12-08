@@ -1,9 +1,7 @@
 package me.stijn.adventofcode19;
 import java.awt.geom.Point2D;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class day3 {

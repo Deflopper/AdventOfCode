@@ -32,6 +32,20 @@ public class IntcodeComputer {
 		}
 		return (ArrayList<Integer>) output.clone();
 	}
+	
+	public ArrayList<Integer> run(Integer[] inputs, Boolean clearMem) {
+		pointer = 0;
+		inputIndex = 0;
+		if (clearMem)
+			intArr = (ArrayList<Integer>) originArr.clone();
+		output.clear();
+		this.inputs = inputs;
+		for (;;) {
+			if (cycle() == 99)
+				break;
+		}
+		return (ArrayList<Integer>) output.clone();
+	}
 
 	private int cycle() {
 		char[] instruction = intArr.get(pointer).toString().toCharArray();
@@ -54,7 +68,7 @@ public class IntcodeComputer {
 			pointer += 4;
 			break;
 		case 3:
-			int val = inputs[inputIndex];
+			int val = inputs.length > inputIndex ? inputs[inputIndex] : 0;
 			System.out.println("Input: " + val);
 			inputIndex++;
 			if (modes.containsKey(0) && modes.get(0) == 1)
@@ -98,5 +112,4 @@ public class IntcodeComputer {
 					: arr.size() > (arr.get(pointer + offset)) ? arr.get(arr.get(pointer + offset)) : -1;
 		return -1;
 	}
-
 }

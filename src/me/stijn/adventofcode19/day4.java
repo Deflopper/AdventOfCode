@@ -1,7 +1,6 @@
 package me.stijn.adventofcode19;
 
 import java.io.IOException;
-import java.util.stream.IntStream;
 
 public class day4 {
 	
