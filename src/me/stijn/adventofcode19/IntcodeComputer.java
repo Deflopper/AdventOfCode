@@ -12,7 +12,7 @@ public class IntcodeComputer {
 	private BigInteger relativeBase = Big(0);
 
 	private int phase = -1;
-	private boolean isAmp = false;
+	private boolean isAmp = false, isPainter = false;
 
 	public IntcodeComputer(String program) {
 		String[] split = program.split(",");
@@ -22,6 +22,11 @@ public class IntcodeComputer {
 		}
 		this.intArr = intArr;
 		this.originArr = (ArrayList<BigInteger>) intArr.clone();
+	}
+	
+	public void reset() {
+		pointer = 0;
+		intArr = (ArrayList<BigInteger>) originArr.clone();
 	}
 
 	public void setPhase(int phase) {
@@ -39,14 +44,24 @@ public class IntcodeComputer {
 	public boolean isAmp() {
 		return isAmp;
 	}
+	
+
+	public boolean isPainter() {
+		return isPainter;
+	}
+
+	public void setPainter(boolean isPainter) {
+		this.isPainter = isPainter;
+	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<BigInteger> run(Integer[] inputs) {
-		if (!isAmp) {
+		if (!isAmp && !isPainter) {
 			pointer = 0;
 			intArr = (ArrayList<BigInteger>) originArr.clone();
+			relativeBase = Big(0);
 		}
-		relativeBase = Big(0);
+		//relativeBase = Big(0);
 		output.clear();
 		inputIndex = 0;
 		this.inputs = inputs;
@@ -59,10 +74,9 @@ public class IntcodeComputer {
 					}
 				};
 			if (res == 98) // continue with next amp
-				return new ArrayList<BigInteger>() {
-					{
+				return new ArrayList<BigInteger>() {{
 						add(Big(4));
-						add(output.get(0));
+						addAll(output);
 					}
 				};
 		}
@@ -107,7 +121,7 @@ public class IntcodeComputer {
 			this.output.add(output);
 
 			pointer += 2;
-			if (isAmp)
+			if (isAmp || (isPainter && this.output.size() > 1))
 				return 98;
 			break;
 		case 5:
