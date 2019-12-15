@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,5 +34,17 @@ public class Utils {
 		List<String> lines = Files.readAllLines(path);
 		return lines.get(0);
 	}
+	
+	public static BigInteger lcmFind(int i, int y) {
+		return lcmFind(Big(i),Big(y));
+	}
+	
+    public static BigInteger lcmFind(BigInteger i, BigInteger y) {
+    	return i.multiply(y).divide(i.gcd(y));
+    }
+    
+    public static BigInteger Big(int i) {
+    	return BigInteger.valueOf(i);
+    }
 
 }
