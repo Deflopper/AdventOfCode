@@ -77,8 +77,6 @@ public class day11 {
 				pointer = new Point2D.Double(pointer.x + direction.move.x, pointer.y + direction.move.y);
 			}
 		}
-		
-		
 	}
 	
 	
