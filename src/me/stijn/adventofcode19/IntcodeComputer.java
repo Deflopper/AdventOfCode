@@ -12,7 +12,7 @@ public class IntcodeComputer {
 	private BigInteger relativeBase = Big(0);
 
 	private int phase = -1;
-	private boolean isAmp = false, isPainter = false;
+	private boolean isAmp = false, isPainter = false, isArcade = false, askedInput = false;
 
 	public IntcodeComputer(String program) {
 		String[] split = program.split(",");
@@ -22,6 +22,10 @@ public class IntcodeComputer {
 		}
 		this.intArr = intArr;
 		this.originArr = (ArrayList<BigInteger>) intArr.clone();
+	}
+	
+	public void setMemoryAdress(int adress, BigInteger value) {
+		intArr.set(adress, value);
 	}
 	
 	public void reset() {
@@ -41,27 +45,21 @@ public class IntcodeComputer {
 		this.isAmp = bool;
 	}
 
-	public boolean isAmp() {
-		return isAmp;
-	}
-	
-
-	public boolean isPainter() {
-		return isPainter;
-	}
-
 	public void setPainter(boolean isPainter) {
 		this.isPainter = isPainter;
 	}
 
+	public void setArcade(boolean isArcade) {
+		this.isArcade = isArcade;
+	}
+
 	@SuppressWarnings("unchecked")
 	public ArrayList<BigInteger> run(Integer[] inputs) {
-		if (!isAmp && !isPainter) {
+		if (!isAmp && !isPainter && !isArcade) {
 			pointer = 0;
 			intArr = (ArrayList<BigInteger>) originArr.clone();
 			relativeBase = Big(0);
 		}
-		//relativeBase = Big(0);
 		output.clear();
 		inputIndex = 0;
 		this.inputs = inputs;
@@ -79,6 +77,12 @@ public class IntcodeComputer {
 						addAll(output);
 					}
 				};
+				if (res == 97)
+					return new ArrayList<BigInteger>() {{
+						add(Big(97));
+						addAll(output);
+					}
+				};
 		}
 	}
 
@@ -91,7 +95,7 @@ public class IntcodeComputer {
 		for (int i = instruction.length - 3; i >= 0; i--) {
 			modes.put(instruction.length - 3 - i, Character.getNumericValue(instruction[i]));
 		}
-
+		//System.out.println("Pointer: " + pointer);
 		BigInteger val1 = getParameter(modes, 1, false), val2 = getParameter(modes, 2, false);
 		switch (opcode) {
 		case 1:
@@ -106,6 +110,12 @@ public class IntcodeComputer {
 			pointer += 4;
 			break;
 		case 3:
+			if (!askedInput || isArcade && inputs[inputIndex] == null || inputs[inputIndex] == -2) {
+				askedInput = true;
+				return 97;
+			}
+			askedInput = false;
+			
 			BigInteger val = Big(inputs.length > inputIndex ? inputs[inputIndex] : 0);
 			if (phase != -1 && inputIndex == 0) {
 				val = Big(phase);
@@ -113,15 +123,16 @@ public class IntcodeComputer {
 			}
 			inputIndex++;
 			set(getParameter(modes, 1, true).intValue(), val);
+			//System.out.println("Input: " + val);
 			pointer += 2;
 			break;
 		case 4:
 			BigInteger output = getParameter(modes, 1, false);
 			//System.out.println("Output: " + output);
 			this.output.add(output);
-
+			
 			pointer += 2;
-			if (isAmp || (isPainter && this.output.size() > 1))
+			if (isAmp || (isPainter && this.output.size() > 1) || (isArcade && this.output.size() > 2)) 
 				return 98;
 			break;
 		case 5:
@@ -162,9 +173,10 @@ public class IntcodeComputer {
 			mode = modes.get(offset - 1);
 		switch (mode) {
 		case 0:
+			//System.out.println("Pointer: " + pointer + " : " + offset);
 			if (output)
 				return intArr.get(pointer + offset);
-			if (Big(intArr.size()).compareTo(intArr.get(pointer + offset)) == 1
+			if (Big(intArr.size()).compareTo(intArr.get(pointer + offset)) == 1 && intArr.get(pointer + offset).intValue() > 0
 					&& intArr.get(intArr.get(pointer + offset).intValue()) != null) {
 				return intArr.get(intArr.get(pointer + offset).intValue());
 			} else
@@ -178,6 +190,7 @@ public class IntcodeComputer {
 				return intArr.get(pointer + offset).add(relativeBase);
 			return intArr.get(intArr.get(pointer + offset).add(relativeBase).intValue());
 		}
+		//System.out.println("Returning -1 for: " + modes +  " offset:L " + offset   );
 		return Big(-1);
 	}
 
