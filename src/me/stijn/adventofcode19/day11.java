@@ -65,6 +65,7 @@ public class day11 {
 			for (;;) {
 				Integer[] input = new Integer[] {getColorAt(pointer)};
 				output = computer.run(input);
+				System.out.println("output: " + output);
 				if (output.get(0).intValue() == 99)
 					break;
 				map.put(pointer, output.get(1).intValue());

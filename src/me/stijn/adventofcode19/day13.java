@@ -31,7 +31,6 @@ public class day13 {
 				pendingInput = ball.getX() > paddle.getX() ? 1 : ball.getX() < paddle.getX() ? -1 : 0;
 				continue;
 			}
-
 			if (output.get(1).intValue() == -1 && output.get(2).intValue() == 0)
 				score = output.get(3).intValue();
 			else {

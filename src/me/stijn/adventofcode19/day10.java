@@ -8,11 +8,16 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class day10 {
+	
+	public static final boolean PRINT_LASER = true;
 
 	public static void main(String[] args) throws IOException {
 		Station station = getBestStation();
 		System.out.println("Amount of asteroids visible from best location: " + station.visibleAsteroids);
 		station.startLaser();
+		if (PRINT_LASER)
+			System.out.println("Amount of asteroids visible from best location: " + station.visibleAsteroids);
+
 	}
 
 	public static Station getBestStation() throws IOException {
@@ -80,11 +85,18 @@ public class day10 {
 		Point2D.Double loc;
 		double laserAngle;
 		ArrayList<Point2D.Double> asteroids = new ArrayList();
+		
+		double minx,maxx,miny,maxy;
 
 		public Station(Point2D.Double loc, ArrayList<Point2D.Double> asteroids, int visibleAsteroids) {
 			this.loc = loc;
 			this.asteroids = asteroids;
 			this.visibleAsteroids = visibleAsteroids;
+			
+			for (Point2D.Double p : asteroids) {
+				if (p.getX() < minx) minx = p.getX(); else if (p.getX()> maxx) maxx = p.getX();
+				if (p.getY() < miny) miny = p.getY(); else if (p.getY()> maxy) maxy = p.getY();
+			}
 		}
 
 		public float getAngleTo(Point2D.Double target) {
@@ -106,6 +118,9 @@ public class day10 {
 				});
 				
 				for (Point2D.Double p : queue) {
+					if (PRINT_LASER) {
+						printRemove(p);
+					}
 					asteroids.remove(p);
 					destroyed++;
 					if (destroyed == 200) {
@@ -121,16 +136,34 @@ public class day10 {
 		public ArrayList<Point2D.Double> getFirstToVapor() {
 			ArrayList<Point2D.Double> queue = new ArrayList();
 			inner: for (Point2D.Double p2 : asteroids) {
-				for (Point2D.Double p3 : asteroids) {
-					if (p2.distance(loc) == 0)
+				for (Point2D.Double p3 : asteroids) 
+					if (p2.distance(loc) == 0 || (checkIfInLine(loc, p2, p3) && p3.distance(p2) != 0 && p3.distance(loc) != 0))
 						continue inner;
-					if (checkIfInLine(loc, p2, p3) && p3.distance(p2) != 0 && p3.distance(loc) != 0) {
-						continue inner;
-					}
-				}
 				queue.add(p2);
 			}
 			return queue;
+		}
+		
+		private void printRemove(Point2D p) {
+			String print = "--------------------------------";
+			for (double y = miny; y < maxy; y++) {
+				print += "\n";
+				for (double x = minx; x < maxx; x++) {
+					if (x == loc.x && y == loc.y) 
+						print += "x";
+					else if (x == p.getX() && y == p.getY()) 
+						print += "X";
+					else if (asteroids.contains(new Point2D.Double(x,y)))
+						print += "#";
+					else print += " ";
+				}
+			}
+			System.out.println(print);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
